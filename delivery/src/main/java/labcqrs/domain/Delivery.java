@@ -1,8 +1,11 @@
 package labcqrs.domain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.*;
 import labcqrs.DeliveryApplication;
 import labcqrs.domain.DeliveryStarted;
@@ -51,6 +54,7 @@ public class Delivery {
 
         /** Example 2:  finding and process
         
+
         repository().findById(orderPlaced.get???()).ifPresent(delivery->{
             
             delivery // do something

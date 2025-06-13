@@ -1,8 +1,11 @@
 package labcqrs.domain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.*;
 import labcqrs.InventoryApplication;
 import lombok.Data;
@@ -18,9 +21,6 @@ public class Inventory {
     private Long id;
 
     private Long stock;
-
-    @PostPersist
-    public void onPostPersist() {}
 
     public static InventoryRepository repository() {
         InventoryRepository inventoryRepository = InventoryApplication.applicationContext.getBean(
@@ -41,6 +41,7 @@ public class Inventory {
 
         /** Example 2:  finding and process
         
+
         repository().findById(orderPlaced.get???()).ifPresent(inventory->{
             
             inventory // do something
@@ -65,6 +66,7 @@ public class Inventory {
 
         /** Example 2:  finding and process
         
+
         repository().findById(orderCancelled.get???()).ifPresent(inventory->{
             
             inventory // do something

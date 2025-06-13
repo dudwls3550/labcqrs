@@ -1,8 +1,11 @@
 package labcqrs.domain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.*;
 import labcqrs.OrderApplication;
 import labcqrs.domain.OrderCancelled;
@@ -39,9 +42,6 @@ public class Order {
         OrderCancelled orderCancelled = new OrderCancelled(this);
         orderCancelled.publishAfterCommit();
     }
-
-    @PreRemove
-    public void onPreRemove() {}
 
     public static OrderRepository repository() {
         OrderRepository orderRepository = OrderApplication.applicationContext.getBean(

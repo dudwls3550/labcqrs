@@ -1,7 +1,7 @@
 # 
 
 ## Model
-www.msaez.io/#/courses/cna-full/8ae59320-6341-11ef-b3d3-7d6354081d9f/dp-cqrs-2022
+www.msaez.io/#/courses/cna-full/2c7ffd60-3a9c-11f0-833f-b38345d437ae/dp-cqrs-2022
 
 ## Before Running Services
 ### Make sure there is a Kafka server running
@@ -35,15 +35,15 @@ mvn spring-boot:run
 ## Test by API
 - order
 ```
- http :8088/orders id="id" productId="productId" qty="qty" customerId="customerId" amount="amount" status="status" address="address" 
+ http :8088/orders id="id"productId="productId"qty="qty"customerId="customerId"amount="amount"status="status"address="address"
 ```
 - inventory
 ```
- http :8088/inventories id="id" stock="stock" 
+ http :8088/inventories id="id"stock="stock"
 ```
 - delivery
 ```
- http :8088/deliveries id="id" address="address" customerId="customerId" quantity="quantity" orderId="orderId" 
+ http :8088/deliveries id="id"address="address"customerId="customerId"quantity="quantity"orderId="orderId"
 ```
 - customercenter
 ```
@@ -88,4 +88,3 @@ sudo ./aws/install
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
 ```
-

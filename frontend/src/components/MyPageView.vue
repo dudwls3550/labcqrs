@@ -1,43 +1,55 @@
 <template>
-
     <v-data-table
         :headers="headers"
-        :items="myPage"
+        :items="items"
         :items-per-page="5"
         class="elevation-1"
     ></v-data-table>
-
 </template>
 
 <script>
-    const axios = require('axios').default;
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import { VDataTable } from 'vuetify/labs/VDataTable'
 
-    export default {
-        name: 'MyPageView',
-        props: {
-            value: Object,
-            editMode: Boolean,
-            isNew: Boolean
-        },
-        data: () => ({
-            headers: [
-                { text: "id", value: "id" },
-                { text: "orderId", value: "orderId" },
-                { text: "productId", value: "productId" },
-                { text: "deliveryStatus", value: "deliveryStatus" },
-                { text: "orderStatus", value: "orderStatus" },
-            ],
-            myPage : [],
-        }),
-          async created() {
-            var temp = await axios.get(axios.fixUrl('/myPages'))
+export default {
+    name: 'MyPageView',
+    components: {
+        VDataTable,
+    },
+    props: {
+        value: Object,
+        editMode: Boolean,
+        isNew: Boolean
+    },
+    setup() {
+        const headers = ref([
+            // 필드 디스크립터를 기반으로 헤더 설정
+            { title: "orderId", key: "orderId" },
+            { title: "productId", key: "productId" },
+            { title: "deliveryStatus", key: "deliveryStatus" },
+            { title: "orderStatus", key: "orderStatus" },
+        ]);
 
-            temp.data._embedded.myPages.map(obj => obj.id=obj._links.self.href.split("/")[obj._links.self.href.split("/").length - 1])
+        const items = ref([]);
 
-            this.myPage = temp.data._embedded.myPages;
-        },
-        methods: {
-        }
+        onMounted(async () => {
+            try {
+                const response = await axios.get('/myPages');
+                const data = response.data._embedded.myPages;
+                data.forEach(obj => {
+                    obj.id = obj._links.self.href.split("/").pop();
+                });
+                items.value = data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+
+        return {
+            headers,
+            items
+        };
     }
+}
 </script>
-
